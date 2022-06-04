@@ -1,0 +1,43 @@
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution {
+    public static void rotateMatrix(ArrayList<ArrayList<Integer>> mat, int n, int m) {
+        int left = 0;
+        int right = m-1;
+        int top = 0;
+        int bottom = n-1;
+        
+
+        Integer curr = 0;
+        while(left<right && top<bottom){
+            Integer prev = mat.get(top+1).get(left);
+            //left to right
+            mat.get(top).add(left,prev);
+            prev = mat.get(top).get(right+1);
+            mat.get(top).remove(right+1);   
+            top++;
+            //top to bottom
+            for(int i=top;i<=bottom;i++){
+                curr = mat.get(i).get(right);
+                mat.get(i).set(right,prev);
+                prev = curr;
+            }
+            right--;
+     
+            //right to left
+            mat.get(bottom).add(right+1,prev);
+            prev = mat.get(bottom).get(left);
+            mat.get(bottom).remove(left);
+            bottom--;
+            //bottom to top
+            for(int i=bottom;i>=top;i--){
+                curr = mat.get(i).get(left);
+                mat.get(i).set(left,prev);
+                prev = curr;
+            }
+            left++;
+        }
+    }
+}
