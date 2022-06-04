@@ -1,0 +1,23 @@
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution{
+    public static int maximumProfit(ArrayList<Integer> prices){
+        
+        int maxPrice = prices.get(prices.size()-1);
+        int result = 0;
+        
+        for(int i=prices.size()-2;i>=0;i--){
+            int curr = prices.get(i);
+            if(maxPrice<curr)
+                maxPrice= curr;
+            else{
+                int diff = maxPrice - curr;
+                result = result<diff?diff:result;
+            }
+        }
+        
+        return result;
+    }
+}
