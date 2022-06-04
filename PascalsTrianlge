@@ -1,0 +1,41 @@
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution {
+	public static ArrayList<ArrayList<Long>> printPascal(int numRows) {
+        ArrayList<ArrayList<Long>> result = new ArrayList<>();
+
+        //To store first arraylist [1]
+        ArrayList<Long> arr1 = new ArrayList<>();
+        if(numRows>=1)
+        {
+            arr1.add(1l);
+            result.add(arr1);
+        }
+        //To store second arraylist - [1,1]
+        ArrayList<Long> arr2 = new ArrayList<Long>();
+        
+        if(numRows>=2)
+        {
+            arr2.add(1l);
+            arr2.add(1l);
+            result.add(arr2);
+        }                
+        for(int i=2;i<numRows;i++)
+        {
+            ArrayList<Long> curr = new ArrayList<Long>();
+            curr.add(1l);
+            for(int j=0;j<i-1;j++)
+            {
+                long first = result.get(i-1).get(j);
+                long second = result.get(i-1).get(j+1);
+                curr.add(first+second);
+            }
+            curr.add(1l);
+            result.add(curr);
+        }
+        
+        return result;
+	}
+}
