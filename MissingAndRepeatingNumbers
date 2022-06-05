@@ -1,0 +1,26 @@
+import java.util.*;
+
+public class Solution {
+
+    public static int[] missingAndRepeating(ArrayList<Integer> arr, int n) {
+        HashMap<Integer,Integer> map = new HashMap<>();
+        int repeated = arr.get(0);
+        int missing = arr.get(0)^n;
+        map.put(repeated,1);
+        for(int i=1;i<n;i++){
+            int curr = arr.get(i);
+            int count = map.getOrDefault(curr,0);
+            if(count==1){
+                repeated = curr;
+            }
+            map.put(curr,count+1);
+            missing = missing^i;
+            missing = missing^curr;
+        }
+        missing = missing^repeated;
+        int[] result = new int[2];
+        result[0] = missing;
+        result[1] = repeated;
+        return result;
+    }
+}
