@@ -1,0 +1,20 @@
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution {
+	static boolean findTargetInMatrix(ArrayList<ArrayList<Integer>> mat, int m, int n, int target) {
+		int row = m-1;
+        for(int i=1;i<m;i++){
+            if(target<mat.get(i).get(0)){
+                row = i - 1;
+                break;
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(target==mat.get(row).get(i))
+                return true;
+        }
+        return false;
+	}
+}
