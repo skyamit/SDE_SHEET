@@ -1,0 +1,64 @@
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution 
+{
+    public static int reversePairs(ArrayList<Integer> nums) 
+    {
+        int[] result = new int[1];
+        result[0] = 0;
+        mergeSort(nums,0,nums.size()-1,result);
+        return result[0];
+    }
+    public static void mergeSort(ArrayList<Integer> nums,int start,int end,int[] result){
+        if(start==end){
+            return ;
+        }
+        
+        int mid = (end-start)/2 + start;
+        mergeSort(nums,start,mid,result);
+        mergeSort(nums,mid+1,end,result);
+        merge(nums,start,mid,end,result);
+        
+        return;
+    }
+    public static void merge(ArrayList<Integer> nums,int start,int mid,int end,int[] result){
+
+        int cnt = 0;
+        int j = mid + 1; 
+        for(int i = start;i<=mid;i++) {
+            while(j<=end && nums.get(i) > (2 * (long) nums.get(j))) {
+                j++;
+            }
+            cnt += (j - (mid+1));
+        }
+        result[0] += cnt;
+        
+        int[] temp = new int[end-start+1];
+        
+        int tS = start;
+        int tES = mid+1;
+        
+        int index = 0;
+        
+        while(tS<=mid && tES<=end){
+            if(nums.get(tS)<=nums.get(tES)){
+                temp[index++] = nums.get(tS++);
+            }
+            else{
+                temp[index++] = nums.get(tES++);
+            }
+        }
+
+        while(tS<=mid){
+            temp[index++] = nums.get(tS++);
+        }
+        while(tES<=end){
+            temp[index++] = nums.get(tES++);
+        }
+        
+        for(int i=0;i<temp.length;i++)
+            nums.set(i+start,temp[i]);
+    }
+}
