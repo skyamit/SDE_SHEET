@@ -1,0 +1,24 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution{
+    public static int[][] pairSum(int[] nums, int target) {
+        HashMap<Integer,Integer> map = new HashMap<>();
+        ArrayList<int[]> list = new ArrayList<>();
+        int remaining=0;
+        for(int i=0;i<nums.length;i++)
+        {
+            remaining = target-nums[i];
+            if(map.containsKey(remaining)){
+                int[] temp = new int[2];
+                temp[0]=nums[i]<remaining?nums[i]:remaining;
+                temp[1]=nums[i]>=remaining?nums[i]:remaining;
+                for(int j=0;j<map.get(remaining);j++)
+                    list.add(temp);
+            }
+            map.put(nums[i],map.getOrDefault(nums[i],0)+1);       
+        }
+        Collections.sort(list,(int[] a,int[] b)->a[0]==b[0]?a[1]-b[1]:a[0]-b[0]);
+        
+       return list.toArray(new int[list.size()][2]);
+    }
+}
