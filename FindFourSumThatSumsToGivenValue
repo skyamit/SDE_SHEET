@@ -1,0 +1,50 @@
+import java.util.HashMap;
+
+public class Solution {
+    public static String fourSum(int[] arr, int target, int n) {
+
+        HashMap < Integer, Pair > map = new HashMap < > ();
+        /* 
+            Preparing a HashMap which will store sum of two 
+            elements of array arr[] as key and their 
+            indexes as value.
+        */
+        for (int i = 0; i < n - 1; ++i) {
+            for (int j = i + 1; j < n; ++j) {
+                map.put(arr[i] + arr[j], new Pair(i, j));
+            }
+        }
+        
+        for (int i = 0; i < n - 1; ++i) {
+            for (int j = i + 1; j < n; ++j) {
+                int requiredSum = target - (arr[i] + arr[j]);
+                /* 
+                    If HashMap contains required sum then we must
+                    ensure that both pairs does not contain 
+                    common indexes.
+                */
+                if (map.containsKey(requiredSum) && !commonIdx(map.get(requiredSum), new Pair(i, j))) {
+                    return "Yes";
+                }
+            }
+        }
+        // If we can not found the target sum then we return No.
+        return "No";
+
+    }
+
+    private static boolean commonIdx(Pair p1, Pair p2) {
+        return p1.idx1 == p2.idx1 || p1.idx1 == p2.idx2 || p1.idx2 == p2.idx1 || p1.idx2 == p2.idx2;
+    }
+
+    // Custom Pair class to store pair of indexes.
+    static class Pair {
+        int idx1;
+        int idx2;
+
+        Pair(int idx1, int idx2) {
+            this.idx1 = idx1;
+            this.idx2 = idx2;
+        }
+    }
+}
