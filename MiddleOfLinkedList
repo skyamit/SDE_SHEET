@@ -1,0 +1,41 @@
+import java.util.* ;
+import java.io.*; 
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+       class Node 
+        { 
+        public:
+            int data;
+            Node next;
+            Node(int data) 
+            {
+              this.data = data;
+              this.next = null;
+            }
+        };
+
+*****************************************************************/
+
+public class Solution {
+    public static Node findMiddle(Node head) 
+    {
+        Node rabbit = head;
+        Node tortoise = head;
+        while(rabbit!=null){
+            if(rabbit.next!=null){
+                tortoise = tortoise.next;
+                if(rabbit.next.next!=null){
+                    rabbit = rabbit.next.next;
+                }
+                else{
+                    break;
+                }
+            }else{
+                break;
+            }
+        }
+        return tortoise;
+    }
+}
