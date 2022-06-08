@@ -1,0 +1,47 @@
+import java.util.* ;
+import java.io.*; 
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+    class LinkedListNode {
+        int data;
+        LinkedListNode next;
+        
+        public LinkedListNode(int data) {
+            this.data = data;
+        }
+    }
+
+*****************************************************************/
+
+
+public class Solution {
+    static LinkedListNode addTwoNumbers(LinkedListNode head1, LinkedListNode head2) {
+        int carry = 0;
+        LinkedListNode result = new LinkedListNode(0);
+        LinkedListNode head = result;
+        while(head1!=null || head2!=null){
+            int n1 = 0;
+            int n2 = 0;
+            if(head1!=null){
+                n1 = head1.data;
+                head1 = head1.next;
+            }
+            if(head2!=null){
+                n2 = head2.data;
+                head2 = head2.next;
+            }
+            int sum = n1+n2 + carry;
+            carry = sum/10;
+            sum = sum%10;
+            head.next = new LinkedListNode(sum);
+            head = head.next;
+        }
+        if(carry>0){
+            head.next = new LinkedListNode(carry);
+        }
+        
+        return result.next;
+    }
+}
