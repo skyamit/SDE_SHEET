@@ -1,0 +1,39 @@
+import java.util.* ;
+import java.io.*; 
+/****************************************************************
+
+    Following is the class structure of the LinkedListNode class:
+	
+	class LinkedListNode<T> {
+    	T data;
+    	LinkedListNode<T> next;
+
+    	public LinkedListNode(T data) {
+        	this.data = data;
+    	}
+	}
+
+*****************************************************************/
+
+public class Solution {
+
+	public static boolean isPalindrome(LinkedListNode<Integer> head) {
+        Deque<Integer> deque = new LinkedList<>();
+		while(head!=null){
+            deque.offer(head.data);
+            head = head.next;
+        }
+        while(deque.size()>0 && 
+              deque.peekFirst().equals(deque.peekLast())){
+            deque.pollFirst();
+            deque.pollLast();
+        }
+        if(deque.size()==1 || deque.size()==0)
+            return true;
+        return false;
+	}
+}
+
+
+
+
