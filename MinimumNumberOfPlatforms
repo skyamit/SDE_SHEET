@@ -1,0 +1,26 @@
+import java.util.*;
+
+public class Solution {
+    public static int calculateMinPatforms(int at[], int dt[], int n) {
+        Arrays.sort(at);
+        Arrays.sort(dt);
+        
+        int tempCount = 0;
+        int maxPlatform = 0;
+        int atI = 0;
+        int dtI = 0;
+        
+        while(atI<at.length){
+            if(at[atI]<=dt[dtI]){
+                tempCount++;
+                atI++;
+            }
+            else{
+                dtI++;
+                tempCount--;
+            }
+            maxPlatform = Math.max(maxPlatform,tempCount);
+        }
+        return maxPlatform;
+    }
+}
