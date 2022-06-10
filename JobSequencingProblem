@@ -1,0 +1,36 @@
+import java.util.*;
+public class Solution
+{
+    public static int jobScheduling(int[][] jobs)
+    {
+        int profit = 0;
+        int maxDeadline = 0;
+        Jobs[] job = new Jobs[jobs.length];
+        for(int i=0;i<job.length;i++){
+            job[i] = new Jobs(jobs[i][0],jobs[i][1]);
+            maxDeadline = Math.max(maxDeadline,jobs[i][0]);
+        }
+        boolean[] task = new boolean[maxDeadline+1];
+        Arrays.sort(job,(Jobs a,Jobs b)->b.profit-a.profit);
+        
+        for(int i=0;i<job.length;i++){
+            for(int j=job[i].deadline;j>0;j--){
+                if(!task[j]){
+                    profit += job[i].profit;
+                    task[j] = true;
+                    break;
+                }
+            }
+        }
+        
+        return profit;
+    }
+    public static class Jobs{
+        int deadline;
+        int profit;
+        Jobs(int d,int p){
+            this.deadline = d;
+            this.profit = p;
+        }
+    }
+}
