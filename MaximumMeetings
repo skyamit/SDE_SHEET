@@ -1,0 +1,33 @@
+import java.util.*;
+public class Solution {
+    public static List<Integer> maximumMeetings(int[] start, int[] end) {        
+        int len = start.length;
+        Meeting[] meeting = new Meeting[len];
+        for(int i=0;i<start.length;i++){
+            meeting[i] = new Meeting(start[i],end[i],i);
+        }
+        
+        Arrays.sort(meeting,(Meeting a,Meeting b)->a.etime==b.etime?a.index-b.index:a.etime-b.etime);
+        ArrayList<Integer> list = new ArrayList<>();
+        int last = -1;
+        for(Meeting m : meeting){
+            if(m.stime>last){
+                list.add(m.index+1);
+                last = m.etime;
+            }
+        }
+        
+        return list;
+    }
+ 
+    public static class Meeting{
+    int stime;
+    int etime;
+    int index;
+    Meeting(int stime,int etime,int index){
+        this.stime = stime;
+        this.etime = etime;
+        this.index = index;
+    }
+}
+}
