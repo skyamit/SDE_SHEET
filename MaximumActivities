@@ -1,0 +1,36 @@
+import java.util.*;
+public class Solution {
+    public static int maximumActivities(List<Integer> start, List<Integer> end) {
+        //Write your code here
+        List<Act> act = new ArrayList<Act>();
+        for(int i=0;i<start.size();i++) {
+            act.add(new Act(start.get(i),end.get(i)));
+        }
+        Collections.sort(act,new SortEnd());
+        int ans = 1;
+        int val = act.get(0).end;
+        for(int i=1;i<(int)act.size();i++) {
+            if(val <= act.get(i).st) {
+                val = act.get(i).end;
+                ans += 1;
+            }
+        }
+        return ans;
+    }
+    
+    public static class Act {
+        int st;
+        int end;
+        
+        public Act(int st,int end) {
+            this.st = st;
+            this.end = end;
+        }
+    }
+    
+    static class SortEnd implements Comparator<Act> {
+        public int compare(Act a, Act b) {
+            return a.end - b.end;
+        }
+    }
+}
