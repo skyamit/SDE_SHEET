@@ -1,0 +1,45 @@
+public class Solution
+{
+public static int findMinimumCoins(int amount)
+    {
+        int coin = 0;
+
+        if(amount>=1000){
+            coin += amount/1000;
+            amount = amount%1000;
+        }
+        if(amount>=500){
+            coin += amount/500;
+            amount = amount%500;
+        }
+        if(amount>=100){
+            coin += amount/100;
+            amount = amount%100;
+        }
+        if(amount>=50){
+            coin += amount/50;
+            amount = amount%50;
+        }
+        if(amount>=20){
+            coin += amount/20;
+            amount = amount%20;
+        }
+        if(amount>=10){
+            coin += amount/10;
+            amount = amount%10;
+        }
+        if(amount>=5){
+            coin += amount/5;
+            amount = amount%5;
+        }
+        if(amount>=2){
+            coin += amount/2;
+            amount = amount%2;
+        }
+        if(amount>=1){
+            coin += amount/1;
+            amount = amount%1;
+        }
+    return coin;
+    }
+}
