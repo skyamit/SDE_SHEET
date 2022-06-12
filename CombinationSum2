@@ -1,0 +1,28 @@
+import java.util.*;
+
+public class Solution 
+{
+    public static ArrayList<ArrayList<Integer>> combinationSum2(ArrayList<Integer> arr, int n, int target)
+    {
+        Collections.sort(arr);
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        ArrayList<Integer> curr = new ArrayList<>();
+        
+        fn(result,curr,arr,n,target,0,0);
+        
+        return result;
+    }
+    public static void fn(ArrayList<ArrayList<Integer>> result,ArrayList<Integer> curr, ArrayList<Integer> arr,int n,int target,int sum,int index){
+        if(target==sum){
+            result.add(new ArrayList(curr));
+        }
+        
+        for(int i=index;i<n;i++){
+            if(i!=index && arr.get(i)==arr.get(i-1)) continue;
+            curr.add(arr.get(i));
+            fn(result,curr,arr,n,target,sum+arr.get(i),i+1);
+            curr.remove(curr.size()-1);
+        }
+        return;
+    }
+}
