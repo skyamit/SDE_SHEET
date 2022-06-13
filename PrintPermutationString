@@ -1,0 +1,24 @@
+import java.util.*;
+
+public class Solution {
+    public static List<String> findPermutations(String s) {
+        List<String> result = new ArrayList<>();
+        boolean[] picked = new boolean[s.length()];
+        fn(s.length(),picked,result,"",s);
+        
+        return result;
+    }
+    public static void fn(int n,boolean picked[],List<String> result,String curr,String s){
+        if(curr.length()==n){
+            result.add(new String(curr));
+            return;
+        }
+        for(int i=0;i<n;i++){
+            if(!picked[i]){
+                picked[i] = true;
+                fn(n,picked,result,curr+s.charAt(i),s);
+                picked[i] = false;
+            }
+        }
+    }
+}
