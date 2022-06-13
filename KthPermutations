@@ -1,0 +1,24 @@
+import java.util.ArrayList;
+
+public class Solution {
+    public static String kthPermutation(int n, int k) {
+        ArrayList<String> result = new ArrayList<>();
+        boolean[] picked = new boolean[n+1];
+        fn(n,picked,result,"");
+        
+        return result.get(k-1);
+    }
+    public static void fn(int n,boolean picked[],ArrayList<String> result,String s){
+        if(s.length()==n){
+            result.add(new String(s));
+            return;
+        }
+        for(int i=1;i<=n;i++){
+            if(!picked[i]){
+                picked[i] = true;
+                fn(n,picked,result,s+""+i);
+                picked[i] = false;
+            }
+        }
+    }
+}
