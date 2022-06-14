@@ -1,0 +1,70 @@
+import java.util.*;
+public class Solution {
+    public static ArrayList<ArrayList<Integer>> solveNQueens(int n) {
+              int[][] b = new int[n][n];
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>() ;
+              fn(b, 0,n,n, result);
+              return result;
+    }
+    public static void fn(int[][] b, int row, int n, int count, ArrayList<ArrayList<Integer>> result) {
+        if(count==0) {
+            // print matrix
+            ArrayList<Integer> curr = new ArrayList () ;
+            for(int i=0;i<n;i++) {
+                for(int j=0;j<n;j++) {
+                    curr.add(b[i][j]) ;
+                }
+            }
+            result.add(curr);
+            return;
+        }
+        //
+        for(int i=0;i<n;i++) {
+            if(isValid(b, i, row, n)) {
+                b[row][i] = 1;
+                fn(b, row+1, n, count-1, result);
+                b[row][i] = 0;
+            }
+        }
+        return;
+    }
+    
+    public static boolean isValid(int[][] b, int col, int row, int n) {
+        for(int j=0;j<n;j++) {
+            if(b[row][j]==1 || b[j][col]==1) {
+                return false;
+            }
+        }
+        int r = row;
+        int c = col;
+        while(r>=0 && c>=0 && r<n && c<n) {
+            if(b[r--][c--]==1) 
+                  return false;
+        }
+        
+        r = row;
+        c = col;
+        while(r>=0 && c>=0 && r<n && c<n) {
+            if(b[r++][c++]==1) 
+                  return false;
+        }
+        
+        r = row;
+        c = col;
+        while(r>=0 && c>=0 && r<n && c<n) {
+            if(b[r--][c++]==1) 
+                  return false;
+        }
+        
+        r = row;
+        c = col;
+        while(r>=0 && c>=0 && r<n && c<n) {
+            if(b[r++][c--]==1) 
+                  return false;
+        }
+        
+        return true;
+    }
+}
+
+
