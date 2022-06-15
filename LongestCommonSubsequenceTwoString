@@ -1,0 +1,28 @@
+
+public class Solution {
+
+	public static int lcs(String s, String t) {
+		int[][] dp = new int[s.length()][t.length()];
+        return fn(s,t,s.length()-1,t.length()-1,dp);
+    }
+    public static int fn(String s,String t,int i1,int i2,int[][] dp){
+        
+        if(i1<0 || i2<0){
+            return 0;
+        }
+        if(dp[i1][i2]!=0){
+            return dp[i1][i2];
+        }
+        int same = 0;
+        int diff = 0;
+        if(s.charAt(i1)==t.charAt(i2)){
+            same = 1 + fn(s,t,i1-1,i2-1,dp);
+        }
+        else{
+            diff = Math.max(fn(s,t,i1-1,i2,dp),fn(s,t,i1,i2-1,dp));
+        }
+        dp[i1][i2] = Math.max(same,diff);
+        
+        return dp[i1][i2];
+    }
+}
