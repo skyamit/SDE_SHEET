@@ -1,0 +1,30 @@
+import java.util.*;
+
+public class Solution {
+
+	public static ArrayList<String> wordBreak(String s, ArrayList<String> dictionary) {
+		Set<String> set = new HashSet<>();
+        int maxWordLength = 0;
+        for(String str : dictionary){
+            set.add(str);
+            maxWordLength = Math.max(maxWordLength,str.length());
+        }
+        ArrayList<String> result= new ArrayList<>();
+        fn(s,0,set,result,"",maxWordLength);
+        return result;
+	}
+    public static void fn(String s, int index, Set<String> set,ArrayList<String> result,String curr,int maxWordLength){
+        if(index==s.length()){
+            result.add(curr);
+            return;
+        }
+        
+        for(int i=index;i<index+maxWordLength && i<s.length(); i++){
+            if(set.contains(s.substring(index,i+1))){
+                fn(s,i+1,set,result,(curr+s.substring(index,i+1)+" "),maxWordLength);
+            }
+        }
+        
+        return;
+    }
+}
