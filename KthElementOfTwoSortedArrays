@@ -1,0 +1,32 @@
+public class Solution {
+    public static int ninjaAndLadoos(int a[], int b[], int m, int n, int k) {
+        int n1 = a.length;
+        int n2 = b.length;
+
+        int[] c = new int[n1+n2]; 
+        int l1 = 0;
+        int l2 = 0;
+        int index = 0;
+        while(l1<n1 && l2<n2){
+            if(a[l1]<=b[l2]){
+                c[index] = a[l1];
+                l1++;
+                index++;
+            }
+            else{
+                c[index] = b[l2];
+                l2++;
+                index++;
+            }
+        }
+        while(l1<n1){
+            c[index] = a[l1++];
+            index++;
+        }
+        while(l2<n2){
+            c[index] = b[l2++];
+            index++;
+        }
+        return c[k-1];
+    }
+}
