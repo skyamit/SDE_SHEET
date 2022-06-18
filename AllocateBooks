@@ -1,0 +1,44 @@
+import java.util.*;
+public class Solution {
+    public static long ayushGivesNinjatest(int n, int m, int[] arr) {
+        // Write your code here.
+        long left = Integer.MAX_VALUE;
+        long right = 0;
+        long max = Integer.MIN_VALUE;
+        for(int i=0;i<arr.length;i++) {
+            left = Math.min(left, arr[i]);
+            right = right + arr[i];
+            max = Math.max(max,arr[i]);
+        }
+        long result = 0;
+        while(left<=right) {
+            long mid =(right+left)/2;
+            if(mid>=max && isCorrect(mid, arr,n)) {
+                result = mid;
+                right = mid - 1;
+            }
+            else{
+                left = mid + 1;
+            }
+        }
+        return result;
+    }
+    public static boolean isCorrect(long mid, int[] arr, int n) {
+        long count = 1;
+        long curr = 0;
+        for(int i=0;i<arr.length;i++) {
+            if(mid<arr[i] || count>n) 
+                 return false;
+            if(curr+arr[i]>mid) {
+                count++;
+                curr = arr[i];
+            }
+            else
+                curr += arr[i];
+        }
+        if(count<=n){
+            return true;
+        }
+        return false;
+    }
+}
