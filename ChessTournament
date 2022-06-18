@@ -1,0 +1,34 @@
+import java.util.*;
+public class Solution {
+
+    public static int chessTournament(int[] positions, int n,  int c) 
+	{
+        Arrays.sort(positions);
+        int left = 1;
+        int right = positions[n-1]-positions[0];
+        long result = 0;
+        while(left<=right) {
+            int mid =(right+left)/2;
+            if(isCorrect(mid, positions,c)) {
+                result = Math.max(result,mid);
+                left = mid + 1;
+            }
+            else{
+                right = mid - 1;
+            }
+        }
+        return (int)result;
+    }
+    public static boolean isCorrect(int mid, int[] positions, int players) {
+        int player = 1;
+        int prevRoom = positions[0];
+        for(int i=1;i<positions.length;i++) {
+            if((positions[i]-prevRoom)>=mid) {
+                player++;
+                prevRoom = positions[i];
+            }
+        }
+        return (player>=players);
+    }  
+
+}
