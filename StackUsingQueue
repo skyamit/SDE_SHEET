@@ -1,0 +1,37 @@
+import java.util.*;
+public class Stack {
+    Queue<Integer> queue;
+
+    public Stack() {
+        queue = new LinkedList<>();
+    }
+
+    /*----------------- Public Functions of Stack -----------------*/
+    public int getSize() { 
+        return queue.size();
+    }
+
+    public boolean isEmpty() {
+        return queue.size()==0;
+    }
+
+    public void push(int element) {
+        Queue<Integer> temp = new LinkedList<Integer>();
+        temp.offer(element);
+        while(!queue.isEmpty()){
+            temp.offer(queue.poll());
+        }
+        while(!temp.isEmpty()){
+            queue.offer(temp.poll());
+        }
+
+    }
+
+    public int pop() {
+        return queue.size()==0?-1:queue.poll();
+    }
+
+    public int top() {
+        return queue.size()==0?-1:queue.peek();
+    }
+}
