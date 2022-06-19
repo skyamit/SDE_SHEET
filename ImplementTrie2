@@ -1,0 +1,58 @@
+public class Trie {
+    Trie[] t;
+    int countWords;
+    int countWordsStartingWith;
+    
+    public Trie() {
+        t = new Trie[26];
+        countWords = 0;
+        countWordsStartingWith=0;
+    }
+
+    public void insert(String word) {
+        Trie root = this;
+        for(char c : word.toCharArray()){
+            if(root.t[c-'a']==null){
+                root.t[c-'a'] = new Trie();
+            }
+            root = root.t[c-'a'];
+            root.countWordsStartingWith++;
+        }
+        root.countWords++;
+    }
+
+    public int countWordsEqualTo(String word) {
+        Trie root = this;
+        for(char c : word.toCharArray()){
+            if(root.t[c-'a']==null){
+                return 0;
+            }
+            root = root.t[c-'a'];
+        }
+        return root.countWords;
+    }
+
+    public int countWordsStartingWith(String word) {
+        Trie root = this;
+        for(char c : word.toCharArray()){
+            if(root.t[c-'a']==null){
+                return 0;
+            }
+            root = root.t[c-'a'];
+        }
+        return root.countWordsStartingWith;
+    }
+
+    public void erase(String word) {
+        Trie root = this;
+        for(char c : word.toCharArray()){
+            if(root.t[c-'a']==null){
+                break;
+            }
+            root = root.t[c-'a'];
+            root.countWordsStartingWith--;
+        }
+        root.countWords--;
+    }
+
+}
