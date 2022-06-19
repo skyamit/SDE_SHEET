@@ -1,0 +1,19 @@
+import java.util.ArrayList;
+
+public class Solution {
+    public static ArrayList<Integer> maxXorQueries(ArrayList<Integer> arr, ArrayList<ArrayList<Integer>> queries) {
+        ArrayList<Integer> result = new ArrayList<>();
+        
+        for(ArrayList<Integer> query : queries){
+            int resultInt = -1;
+            for(Integer ar : arr){
+                if(ar<=query.get(1)){
+                    resultInt = Math.max(resultInt,ar^query.get(0));
+                }
+            }
+            result.add(resultInt);
+        }
+        
+        return result;
+    }
+}
