@@ -1,0 +1,49 @@
+import java.util.*;
+class Solution {
+  public static String completeString(int n, String[] a) {
+    // Write your code here.
+      Arrays.sort(a,(String w1,String w2)->
+                  (w1.length()==w2.length()?w1.compareTo(w2):w2.length()-w1.length()));
+      Trie tri = new Trie();
+      for(String word : a){
+          tri.insert(word,tri);
+      }
+      
+      for(String word : a){
+          if(tri.search(word,tri)){
+              return word;
+          }
+      }
+      return "None";
+  }
+
+}
+
+class Trie {
+    Trie[] t;
+    boolean wordComplete;
+
+    public Trie() {
+        t = new Trie[26];
+        wordComplete = false;
+    }
+
+    public void insert(String word,Trie root) {
+        for(char c : word.toCharArray()){
+            if(root.t[c-'a']==null){
+                root.t[c-'a'] = new Trie();
+            }
+            root = root.t[c-'a'];
+        }
+        root.wordComplete = true;
+    }
+
+    public boolean search(String word,Trie root) {
+        for(char c : word.toCharArray()){
+            root = root.t[c-'a'];
+            if(!root.wordComplete)
+                return false;
+        }
+        return true;
+    }
+}
