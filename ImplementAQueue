@@ -1,0 +1,26 @@
+import java.util.*;
+public class Queue {
+    LinkedList<Integer> list;
+    Queue() {
+        list = new LinkedList<>();
+    }
+
+    /*----------------- Public Functions of Queue -----------------*/
+
+    boolean isEmpty() {
+        return list.size()==0;
+    }
+
+    void enqueue(int data) {
+        list.add(data);
+    }
+
+    int dequeue() {
+        return list.size()==0?-1:list.remove();
+    }
+
+    int front() {
+        return list.size()==0?-1:list.peek();
+    }
+
+}
