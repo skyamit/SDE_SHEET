@@ -1,0 +1,33 @@
+import java.util.*;
+public class Stack {
+    
+    int nums[];
+    int index = -1;
+    
+    public Stack(int n){
+        nums = new int[n];
+    }
+    
+    void push(int num) {
+        nums[++index] = num;
+    }
+    
+    int pop() {
+        return index==-1?-1:nums[index--];
+    }
+    
+    int top() {
+        return index==-1?-1:nums[index];
+    }
+    
+    int isEmpty() {
+        return index==-1?1:0;
+    }
+    
+    int isFull() {
+        if(index==nums.length)
+            return 1;
+        return 0;
+    }
+    
+}
