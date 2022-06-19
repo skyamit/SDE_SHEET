@@ -1,0 +1,25 @@
+import java.util.*;
+public class Solution {
+	public static ArrayList<ArrayList<Integer>> pwset(ArrayList<Integer> arr) {
+		Collections.sort(arr);
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        ArrayList<Integer> curr = new ArrayList<>();
+        fn(arr.size(),0,curr,result,arr);
+        
+        return result;
+	}
+    public static void fn(int n,int index, ArrayList<Integer> curr, ArrayList<ArrayList<Integer>> result, ArrayList<Integer> arr){
+        
+        if(n==index){
+            result.add(new ArrayList(curr));
+            return;
+        }
+        
+        fn(n,index+1,curr,result,arr);
+        curr.add(arr.get(index));
+        fn(n,index+1,curr,result,arr);
+        curr.remove(curr.size()-1);
+        return;
+    }
+}
+
