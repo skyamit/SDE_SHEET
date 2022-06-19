@@ -1,0 +1,79 @@
+import java.util.*;
+public class Solution{
+    static int sz;
+    
+    static int left(int k) {
+        return 2*k + 1;
+    }
+    
+    static int right(int k) {
+        return 2*k + 2;
+    }
+    
+    static int parent(int k) {
+        return (k-1)/2;
+    }
+    
+    static void heapify(int []heap,int id,int n) {
+        int l = left(id);
+        int r = right(id);
+        int largest = id;
+        if (l < n && heap[l] > heap[id]) {
+            largest = l;
+        }
+        if (r < n && heap[r] > heap[largest]) {
+            largest = r;
+        }
+        if (largest != id) {
+            int tempp = heap[id];
+            heap[id] = heap[largest];
+            heap[largest] = tempp;
+            heapify(heap, largest, n);
+        }
+    }
+    
+    static void insert(int val,int[] heap) {
+        heap[sz] = val;
+        int i = sz;
+        sz += 1;
+        while (i != 0 && heap[parent(i)] < heap[i]) {
+            int tmp = heap[i];
+            heap[i] = heap[parent(i)];
+            heap[parent(i)] = tmp;
+            i = parent(i);
+        }
+    }
+    
+    static int extractMin(int []heap) {
+        if(sz == 1) {
+            sz -= 1;
+            return heap[0];
+        }
+        int val = heap[0];
+        heap[0] = heap[sz-1];
+        sz -= 1;
+        heapify(heap,0,sz);
+        return val;
+    }
+    
+    public static ArrayList<Integer> kMaxSumCombination(ArrayList<Integer> a, ArrayList<Integer> b, int n, int k){
+        ArrayList<Integer> result = new ArrayList<>();
+        int[] heap = new int[n*n+1];
+        int size = 0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                sz = size;
+                insert(a.get(i)+b.get(j),heap);
+                size = sz;
+            }
+        } 
+
+        for(int i=0;i<k;i++){
+            sz = size;
+            result.add(extractMin(heap));
+            size = sz;
+        }
+        
+        return result;
+    }
+}
