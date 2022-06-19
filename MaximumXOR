@@ -1,0 +1,12 @@
+public class Solution {
+
+    public static int maximumXor(int[] A) {
+       int max = 0;
+        for(int i=0;i<A.length;i++){
+            for(int j=i+1;j<A.length;j++){
+                max = Math.max(max,A[i]^A[j]);
+            }
+        }
+        return max;
+    }
+}
