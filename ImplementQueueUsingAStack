@@ -1,0 +1,45 @@
+import java.util.*;
+public class Queue {
+    // Define the data members(if any) here.
+    Stack<Integer> stack;
+    Queue() {
+        stack = new Stack<>();
+    }
+
+    void enQueue(int val) {
+        stack.push(val);
+    }
+
+    int deQueue() {
+        if(stack.size()==0){
+            return -1;
+        }
+        int top = stack.pop();
+        if(stack.isEmpty()){
+            return top;
+        }
+        int last = deQueue();
+        stack.push(top);
+        return last;
+    }
+    
+    int peek() {
+        if(stack.isEmpty()){
+            return -1;
+        }
+        return dummyPeak();
+    }
+    int dummyPeak(){
+        int top = this.stack.pop();
+        if(stack.isEmpty()){
+            this.stack.push(top);
+            return top;
+        }
+        int last = dummyPeak();
+        this.stack.push(top);
+        return last;
+    }
+    boolean isEmpty() {
+        return stack.isEmpty();
+    }
+}
