@@ -1,0 +1,42 @@
+/*
+	This is signature of helper function 'knows'.
+	You should not implement it, or speculate about its implementation.
+
+	boolean knows(int A, int B); 
+	Function 'knows(A, B)' will returns "true" if the person having
+	id 'A' know the person having id 'B' in the party, "false" otherwise.
+	Use it as Runner.knows(A, B);
+*/
+	import java.util.*;
+public class Solution {
+	public static int findCelebrity(int n) {
+        Stack<Integer> stack = new Stack<>();
+        for(int i=0;i<n;i++)
+            stack.push(i);
+        
+        while(stack.size()>1){
+            int a = stack.pop();
+            int b = stack.pop();
+            
+            if(Runner.knows(a,b))
+                stack.push(b);
+            else
+                stack.push(a);
+        }
+        if(stack.isEmpty())
+            return -1;
+        int candidate = stack.peek();
+        
+        for(int i=0;i<n;i++){
+            if(i!=candidate && !Runner.knows(i,candidate)){
+                return -1;
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(Runner.knows(candidate,i)){
+                return -1;
+            }
+        }
+        return candidate;
+    }
+}
