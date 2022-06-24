@@ -1,0 +1,20 @@
+public class Solution {
+    public static int atoi(String str) {
+        // Write your code here.
+        int result = 0;
+        int multiple = 1;
+        boolean sign = true;//positive
+        
+        if(str.charAt(0)=='-')
+            sign = false;
+        
+        for(int i=str.length()-1;i>=0;i--){
+            int curr = (int)(str.charAt(i)-'0');
+            if(curr>=0 && curr<=9){
+                result += curr*multiple;
+                multiple *= 10;
+            }
+        }
+        return sign?result:-1*result;
+    }
+}
