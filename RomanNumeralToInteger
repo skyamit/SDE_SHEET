@@ -1,0 +1,39 @@
+import java.util.*;
+public class Solution {
+    public static int romanToInt(String s) {
+        HashMap<Character,Integer> map = new HashMap<>();
+        Stack<Integer> stack = new Stack<>();
+        map.put('I',1);
+        map.put('V',5);
+        map.put('X',10);
+        map.put('L',50);
+        map.put('C',100);
+        map.put('D',500);        
+        map.put('M',1000);   
+        int result = 0;
+        for(char c : s.toCharArray()){
+            if(stack.isEmpty()){
+                stack.push(map.get(c));
+            }
+            else{
+                if(stack.peek()==map.get(c)){
+                    int peek = stack.pop()*2;
+                    stack.push(peek);
+                }
+                else if(stack.peek()>map.get(c)){
+                    int peek = stack.pop();
+                    result += peek;
+                    stack.push(map.get(c));
+                }
+                else{
+                    int peek = map.get(c)-stack.pop();    
+                    stack.push(peek);
+                }
+            }
+        }
+        while(!stack.isEmpty()){
+            result += stack.pop();
+        }
+        return result;
+    }
+}
