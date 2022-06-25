@@ -1,0 +1,29 @@
+public class Solution 
+{
+    public static String writeAsYouSpeak(int n) 
+    {
+        if(n==1)
+            return "1";
+        
+        String input = "1 ";
+        int count = 1;
+        
+        while(count++<n){
+            StringBuilder sb = new StringBuilder();
+            char prev = input.charAt(0);
+            int countRepeated = 1;
+            for(int i=1;i<input.length();i++){
+                if(prev==input.charAt(i)){
+                    countRepeated++;
+                }
+                else{
+                    sb.append(countRepeated+"").append(prev+"");
+                    countRepeated=1;
+                }
+                prev = input.charAt(i);
+            }
+            input = sb.toString()+" ";
+        }
+        return input;
+    }
+}
