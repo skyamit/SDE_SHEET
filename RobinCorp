@@ -1,0 +1,16 @@
+import java.util.ArrayList;
+
+public class Solution {
+	public static ArrayList<Integer> stringMatch(String str, String pat) {
+		if(pat.length()>str.length())
+            return new ArrayList<Integer>();
+        
+        ArrayList<Integer> result = new ArrayList<>();
+        for(int i=0;i<str.length()-pat.length()+1;i++){
+            if(str.substring(i,pat.length()+i).equals(pat)){
+                result.add(i);
+            }
+        }
+        return result;
+	}
+}
