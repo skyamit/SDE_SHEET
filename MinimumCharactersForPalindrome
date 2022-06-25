@@ -1,0 +1,24 @@
+
+public class Solution {
+
+    public static int minCharsforPalindrome(String str) {
+        for(int i=0;i<str.length();i++){
+            if(isPalindrome(str,i)){
+                return i;
+            }
+        }
+        return str.length();
+    }
+    public static boolean isPalindrome(String str,int skip){
+        int left = 0;
+        int right = str.length()-skip-1;
+        while(left<right){
+            if(str.charAt(left)!=str.charAt(right)){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
