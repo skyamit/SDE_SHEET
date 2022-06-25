@@ -1,0 +1,46 @@
+public class Solution {
+    public static boolean findPattern(String p, String s) {
+        int n = p.length();
+        int m = s.length();
+        
+        int[] lps = new int[n];
+        computeLPSArray(p,s,lps);
+        int i = 0;
+        int j = 0;
+        
+        while(i<m){
+            if(s.charAt(i)==p.charAt(j)){
+                j++;
+                i++;
+            }
+            else{
+                if(j!=0)
+                    j = lps[j-1];
+                else
+                    i++;
+            }
+            if(j==n)
+                return true;
+        }
+        return false;
+    }
+    public static void computeLPSArray(String p, String s, int[] lps){
+        int len = 0;
+        int i = 1;
+        while(i<p.length()){
+            if(p.charAt(i)==p.charAt(len)){
+                lps[i] = len + 1;
+                len++;
+                i++;
+            }
+            else {
+                if(len!=0)
+                    len = lps[len-1];
+                else{
+                    lps[i] = 0;
+                    i++;   
+                }
+            }
+        }
+    }
+}
