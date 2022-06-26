@@ -1,0 +1,32 @@
+import java.math.*;
+public class Solution 
+{
+    public static int compareVersions(String a, String b){
+        String[] s1 = a.split("\\.");
+        String[] s2 = b.split("\\.");
+        int m = Math.min(s1.length,s2.length);
+        int j = 0;
+        for(j=0;j<m;j++){
+            int val = new BigInteger(s1[j]).compareTo(new BigInteger(s2[j]));
+            if(val<0)
+                return -1;
+            else if(val>0)
+                return 1;
+        }
+        if(s1.length<s2.length){
+            for(;j<s2.length;j++){
+                if(s2[j].compareTo("0")>0)
+                    return -1;
+                    
+            }
+        }
+        else if(s1.length>s2.length){
+            for(;j<s1.length;j++){
+                if(s1[j].compareTo("0")>0)
+                    return 1;
+                    
+            }
+        }
+        return 0;
+    }
+}
