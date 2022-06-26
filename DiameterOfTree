@@ -1,0 +1,36 @@
+/*************************************************************
+
+Following is the Binary Tree Node structure:
+
+    class TreeNode<T> {
+		public T data;
+		public BinaryTreeNode<T> left;
+		public BinaryTreeNode<T> right;
+
+		TreeNode(T data) {
+			this.data = data;
+			left = null;
+			right = null;
+	  	}
+    }
+
+*************************************************************/
+
+public class Solution {
+    static int max;
+	public static int diameterOfBinaryTree(TreeNode<Integer> root) {
+		// Write your code here.
+        max = 0;
+        diameter(root);
+        return max;
+	}
+    public static int diameter(TreeNode<Integer> root) {
+        if(root==null)
+            return 0;
+        
+        int lh = diameter(root.left);
+        int rh = diameter(root.right);
+        max = Math.max(max,lh+rh);
+        return 1+Math.max(lh,rh);
+    }
+}
