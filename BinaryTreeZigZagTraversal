@@ -1,0 +1,62 @@
+/*
+	Following is the class used to represent the object/node of the Binary Tree
+
+	class BinaryTreeNode<T> {
+	    T data;
+	    BinaryTreeNode<T> left;
+	    BinaryTreeNode<T> right;
+
+	    public BinaryTreeNode(T data) {
+	        this.data = data;
+	    }
+	}
+*/
+import java.util.*;
+public class Solution {
+	public static List<Integer> zigZagTraversal(BinaryTreeNode<Integer> root) {
+		Queue<BinaryTreeNode<Integer>> queue = new LinkedList<>();
+        int levels = 0;
+        // odd then left to right, else right to left
+        List<Integer> result = new ArrayList<>();
+        if(root==null)
+            return result;
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            levels++;
+            List<Integer> list = new ArrayList<>();
+            for(int i=0;i<size;i++){
+                BinaryTreeNode<Integer> node = queue.poll();
+                list.add(node.data);
+                if(node.left!=null)
+                    queue.offer(node.left);
+                if(node.right!=null)
+                    queue.offer(node.right);
+            }
+            if(levels%2==0){             
+                for(int i=list.size()-1;i>=0;i--){
+                    result.add(list.get(i));
+                }
+            }
+            else{
+                result.addAll(list);
+            }
+        }
+        return result;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
