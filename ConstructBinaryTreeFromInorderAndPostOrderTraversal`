@@ -1,0 +1,61 @@
+/************************************************************
+   
+   Following is the TreeNode class structure
+   
+   class TreeNode<T>
+   { 
+   public:
+        T data; 
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+   
+        TreeNode(T data) 
+  		{ 
+            this -> data = data; 
+            left = NULL; 
+            right = NULL; 
+        }
+   };
+   
+   
+ ************************************************************/
+
+TreeNode<int> * helper(vector<int> & in,int ins,int ine,vector<int> & po,int pos,int poe)
+{
+    if(ins>ine)
+        return NULL;
+        int rootdata=po[poe];
+        TreeNode<int> * root=new TreeNode<int>(rootdata);
+        int rootindex;
+        for(int i=ins;i<=ine;i++)
+        {
+            if(in[i]==rootdata)
+            {
+                rootindex=i;
+                break;
+            }
+        }
+        int rpoe=poe-1;
+        int lpos=pos;
+        int line=rootindex-1;
+        int lins=ins;
+        int rins=rootindex+1;
+        int rine=ine;
+        int lpoe;
+        int rpos;
+         rpos=rpoe-(rine-rins);
+        lpoe=rpos-1;
+        root->left=helper(in,lins,line,po,lpos,lpoe);
+        root->right=helper(in,rins,rine,po,rpos,rpoe);
+        return root;
+        
+   
+        
+}
+TreeNode<int>* getTreeFromPostorderAndInorder(vector<int>& postOrder, vector<int>& inOrder) 
+{
+    int n=inOrder.size();
+    int st=0;
+    int ed=n-1;
+    return helper(inOrder,st,ed,postOrder,st,ed);
+}
