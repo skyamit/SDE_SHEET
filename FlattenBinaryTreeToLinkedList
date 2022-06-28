@@ -1,0 +1,50 @@
+/************************************************************
+
+    Following is the TreeNode class structure.
+
+	class TreeNode<T> 
+	{
+	    public T data;
+	    public TreeNode<T> left;
+	    public TreeNode<T> right;
+
+	    TreeNode(T data) 
+	    {
+	        this.data = data;
+	        left = null;
+	        right = null;
+	    }
+	}
+
+************************************************************/
+
+public class Solution 
+{
+    public static TreeNode<Integer> flattenBinaryTree(TreeNode<Integer> root)
+    {
+        // Write your code here.
+        prev= null;
+        return flatten (root) ;
+    }
+    public static TreeNode<Integer> prev= null;
+    public static TreeNode<Integer> flatten(TreeNode<Integer> root){
+        if(root==null)
+            return null;
+        
+        flatten(root.left);
+        flatten(root.right) ;
+        
+        root.right = prev;
+        root.left= null;
+        prev = root;
+        return root;
+    }
+}
+
+
+
+
+
+
+
+
