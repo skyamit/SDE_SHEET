@@ -1,0 +1,48 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+	class TreeNode<T> 
+	{
+	    public T data;
+	    public TreeNode<T> left;
+	    public TreeNode<T> right;
+
+	    TreeNode(T data) 
+	    {
+	        this.data = data;
+	        left = null;
+	        right = null;
+	    }
+	}
+
+************************************************************/
+
+
+public class Solution 
+{
+    static int counter = 0;
+    static int result = 0;
+	public static int kthSmallest(TreeNode<Integer> root, int k) 
+	{
+        counter=0;
+        if(root==null)
+            return -1;
+        return Smallest(root,k).data;
+	}
+    public static TreeNode<Integer> Smallest(TreeNode<Integer> root,int k){
+        if(root==null)
+            return null;
+        
+        TreeNode<Integer> left=Smallest(root.left,k);
+        if(left!=null)
+            return left;
+        
+        counter++;
+        
+        if(k==counter)
+            return root;
+
+        return Smallest(root.right,k);
+    }
+}
