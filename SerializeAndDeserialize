@@ -1,0 +1,95 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    class TreeNode<T> 
+    {
+       public:
+        T data;
+        TreeNode<T> left;
+        TreeNode<T> right;
+
+        TreeNode(T data) 
+        {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+    };
+
+************************************************************/
+import java.util.*;
+
+public class Solution 
+{
+    public static String serializeTree(TreeNode<Integer> root)
+    {
+        if(root==null)
+            return "-1";
+        
+        StringBuilder sb = new StringBuilder();
+        Queue<TreeNode<Integer>> queue = new LinkedList<>();
+        queue.offer(root);
+        sb.append(root.data+"").append(",");
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            while(size-->0){
+                TreeNode<Integer> node = queue.poll();
+                if(node.left!=null){
+                    sb.append(node.left.data+"").append(",");
+                    queue.offer(node.left);
+                }
+                else{
+                    sb.append("#").append(",");
+                }
+                if(node.right!=null){
+                    sb.append(node.right.data+"").append(",");
+                    queue.offer(node.right);
+                }
+                else{
+                    sb.append("#").append(",");
+                }
+            }
+        }
+        return sb.toString();
+    }
+    
+    public static TreeNode<Integer> deserializeTree(String str)
+    {
+        if(str.equals("-1"))
+            return null;
+        
+        String[] arr = str.split(",");
+        Queue<TreeNode<Integer>> queue = new LinkedList<>();
+        TreeNode<Integer> root = new TreeNode<>(Integer.valueOf(arr[0]));
+        queue.offer(root);
+        for(int i=1;i<arr.length;i++){
+            TreeNode<Integer> node = queue.poll();
+            if(!arr[i].equals("#")){
+                TreeNode<Integer> left = new TreeNode<Integer>(Integer.valueOf(arr[i]));
+                node.left = left;
+                queue.offer(left);
+            }
+            if(!arr[++i].equals("#")){
+                TreeNode<Integer> right = new TreeNode<Integer>(Integer.valueOf(arr[i]));
+                node.right = right;
+                queue.offer(right);
+            }
+        }
+        return root;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
