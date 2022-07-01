@@ -1,0 +1,60 @@
+/***************************************************************************
+  Class for graph node is as follows:
+  class graphNode {
+      public int data;
+      public ArrayList<graphNode> neighbours;
+      graphNode() {
+          data = 0;
+          neighbours = new ArrayList<graphNode>();
+      }
+      graphNode(int val) {
+          data = val;
+          neighbours = new ArrayList<graphNode>();
+      }
+      graphNode(int val, ArrayList<graphNode> neighbours) {
+          data = val;
+          this.neighbours = neighbours;
+      }
+    }
+******************************************************************************/
+import java.util.*;
+public class Solution {
+    public static graphNode cloneGraph(graphNode node) {
+        
+        return cloneGraphDFSHelper(node,new HashMap<graphNode,graphNode>());
+    }
+    private static graphNode cloneGraphDFSHelper(graphNode cur, HashMap<graphNode, graphNode> visited) {
+        if (cur == null) {
+            return null;
+        }
+        if (visited.containsKey(cur)) {
+            return visited.get(cur);
+        }
+
+        graphNode newNode = new graphNode(cur.data);
+        visited.put(cur, newNode);
+
+        for (graphNode n : cur.neighbours) {
+            newNode.neighbours.add(cloneGraphDFSHelper(n, visited));
+        }
+
+        return newNode;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
