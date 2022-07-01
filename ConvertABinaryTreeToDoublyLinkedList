@@ -1,0 +1,49 @@
+
+/*************************************************************
+ class BinaryTreeNode<T> {
+	T data;
+	BinaryTreeNode<T> left;
+	BinaryTreeNode<T> right;
+
+	public BinaryTreeNode(T data) {
+		this.data = data;
+	}
+}
+
+*************************************************************/
+import java.util.*;
+
+public class Solution {
+	
+	public static BinaryTreeNode<Integer> BTtoDLL(BinaryTreeNode<Integer> root) {
+		Queue<BinaryTreeNode<Integer>> queue = new LinkedList<>();
+        getInOrder(root,queue);
+        return createDL(queue);
+	}
+	public static void getInOrder(BinaryTreeNode<Integer> root,Queue<BinaryTreeNode<Integer>> queue){
+        if(root==null)
+            return ;
+        
+        getInOrder(root.left,queue);
+        queue.offer(root);
+        getInOrder(root.right,queue);
+        
+        return;
+    }
+    public static BinaryTreeNode<Integer> createDL(Queue<BinaryTreeNode<Integer>> queue){
+        BinaryTreeNode<Integer> root = queue.peek();
+        BinaryTreeNode<Integer> prev = null;
+        while(!queue.isEmpty()){
+            BinaryTreeNode<Integer> node = queue.poll();
+            node.left = prev;
+            if(!queue.isEmpty())
+                node.right = queue.peek();
+            else
+                node.right = null;
+            prev = node;
+        }
+        return root;
+    }
+    
+
+}
