@@ -1,0 +1,39 @@
+import java.util.ArrayList;
+
+public class Solution {
+    public static ArrayList<ArrayList<Integer>> depthFirstSearch(int v, int e, ArrayList<ArrayList<Integer>> edges) {
+        boolean[] visited = new boolean[v+1];
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        for(int i=0;i<v;i++){
+            if(!visited[i]){
+                ArrayList<Integer> list = new ArrayList<>();
+                visited[i] = true;
+                list.add(i);
+                fn(list,edges,visited,i);
+                result.add(list);
+            }
+        }
+        return result;
+    }
+    public static void fn(ArrayList<Integer> list,ArrayList<ArrayList<Integer>> edges,boolean[] visited,int curr){
+        
+        for(ArrayList<Integer> edge : edges){
+            int a1 = edge.get(0);
+            int a2 = edge.get(1);
+            if(a1==curr){
+                if(!visited[a2]){
+                    list.add(a2);
+                    visited[a2] = true;
+                    fn(list,edges,visited,a2);
+                }
+            }
+            else if(a2==curr){
+                if(!visited[a1]){
+                    list.add(a1);
+                    visited[a1] = true;
+                    fn(list,edges,visited,a1);
+                }
+            }
+        }
+    }
+}
