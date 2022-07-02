@@ -1,0 +1,37 @@
+import java.util.*;
+public class Solution {
+    
+    public static String cycleDetection(int[][] edges, int n, int m) {
+        ArrayList<TreeSet<Integer>> adjList = new ArrayList<>();
+        for(int i=0;i<=n;i++){
+            adjList.add(new TreeSet<Integer>());
+        }
+        
+        for(int j=0;j<edges.length;j++){
+            adjList.get(edges[j][0]).add(edges[j][1]);
+            adjList.get(edges[j][1]).add(edges[j][0]);
+        }
+        
+        boolean[] visited = new boolean[n+1];
+        for(int i=1;i<=n;i++){
+            if(!visited[i] && dfs(-1,i,visited,adjList)){
+                return "Yes";
+            }
+        }
+        
+        return "No";
+    }
+    public static boolean dfs(int prev,int node,boolean[] visited,ArrayList<TreeSet<Integer>> adjList){
+        visited[node] = true;
+        for(Integer x : adjList.get(node)){
+            if(!visited[x]){
+                if(dfs(node,x,visited,adjList)){
+                    return true;
+                }
+            }
+            else if(x!=prev)
+                return true;
+        }
+        return false;
+    }
+}
