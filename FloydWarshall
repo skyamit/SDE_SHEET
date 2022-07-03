@@ -12,11 +12,9 @@ public class Solution {
             matrix[edge.get(0)][edge.get(1)] = edge.get(2);
         }
         int[][] dp = new int[n][n];
-        int[][] next = new int[n][n];
         
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (matrix[i][j] != 1000000000) next[i][j] = j;
                 dp[i][j] = matrix[i][j];
             }
         }
@@ -27,7 +25,6 @@ public class Solution {
                 for (int j = 0; j < n; j++) {
                     if (dp[i][k] + dp[k][j] < dp[i][j]) {
                         dp[i][j] = dp[i][k] + dp[k][j];
-                        next[i][j] = next[i][k];
                     }
                 }
             }
