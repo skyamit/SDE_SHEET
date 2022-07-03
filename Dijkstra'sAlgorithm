@@ -1,0 +1,54 @@
+import java.util.*;
+public class Solution {
+	
+	public static ArrayList < Integer > dijkstra(ArrayList< ArrayList < Integer > > vec, int vertices, int edges, int source){
+        //To Store the result
+		ArrayList<Integer> result = new ArrayList<>();
+        for(int i=0;i<vertices;i++){
+            result.add(Integer.MAX_VALUE);
+        }
+        
+        //Adjacency List
+        ArrayList<ArrayList<Node>> adjList = new ArrayList<>();
+        for(int i=0;i<vertices;i++){
+            adjList.add(new ArrayList<Node>());
+        }
+        result.set(0,0);
+        for(ArrayList<Integer> ve : vec){
+            adjList.get(ve.get(0)).add(new Node(ve.get(1),ve.get(2)));
+            adjList.get(ve.get(1)).add(new Node(ve.get(0),ve.get(2)));
+        }
+        
+        //Priority Queue to keep track of min cost
+        PriorityQueue<Node> queue = new PriorityQueue<Node>(vertices,new Node());
+        queue.offer(new Node(0,0));
+        
+        while(!queue.isEmpty()){
+            Node temp = queue.poll();
+            for(Node x : adjList.get(temp.v)){
+                if(result.get(temp.v) + x.cost< result.get(x.v)){
+                    result.set(x.v,(result.get(temp.v) + x.cost));
+                    queue.offer(new Node(x.v,result.get(x.v)));
+                }
+            }
+        }
+        
+        return result;
+	}
+}
+class Node implements Comparator<Node>{
+    int v;
+    int cost;
+    Node(){}
+    Node(int _v,int _cost){
+        v = _v;
+        cost = _cost;
+    }
+    @Override
+    public int compare(Node a,Node b){
+        return a.cost-b.cost;
+    }
+}
+
+
+
