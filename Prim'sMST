@@ -1,0 +1,72 @@
+import java.util.*;
+
+public class Solution 
+{
+    public static ArrayList<ArrayList<Integer>> calculatePrimsMST(int n, int m, ArrayList<ArrayList<Integer>> gg)
+    {
+        int[] parent = new int[n+1];
+        boolean[] mst = new boolean[n+1];
+        int[] weight = new int[n+1];
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        
+        // create adjacency list
+        ArrayList<ArrayList<Node>> adjList = new ArrayList<>();
+        for(int i=0;i<=n;i++){
+            adjList.add(new ArrayList<Node>());
+        }
+        
+        for(ArrayList<Integer> g : gg){
+            adjList.get(g.get(0)).add(new Node(g.get(1),g.get(2)));
+            adjList.get(g.get(1)).add(new Node(g.get(0),g.get(2)));
+        }
+        
+        //populate default values in mst
+        for(int i=0;i<=n;i++){
+            weight[i] = Integer.MAX_VALUE;
+        }
+        parent[1] = -1;
+        weight[1] = 0;
+        
+        PriorityQueue<Node> queue = new PriorityQueue<Node>(n, new Node());
+        queue.offer(new Node(1,0));
+        
+        while(!queue.isEmpty()){
+            Node temp = queue.poll();
+            mst[temp.to] = true;
+            for(Node x : adjList.get(temp.to)){
+                if(mst[x.to]==false && x.weight <weight[x.to]){
+                    parent[x.to] = temp.to;
+                    weight[x.to] = x.weight;
+                    queue.offer(new Node(x.to,weight[x.to]));
+                }
+            }
+                
+        }
+        
+        for(int i=1;i<=n;i++){
+            if(parent[i]!=-1){
+                ArrayList<Integer> temp = new ArrayList<>();
+                temp.add(i);
+                temp.add(parent[i]);
+                temp.add(weight[i]);
+                result.add(temp);
+            }
+        }
+        
+        return result;
+    }
+}
+class Node implements Comparator<Node>{
+    int to;
+    int weight;
+    Node(){
+    }
+    Node(int _to,int _weight){
+        to = _to;
+        weight = _weight;
+    }
+    @Override
+    public int compare(Node a,Node b){
+        return a.weight-b.weight;
+    }
+}
