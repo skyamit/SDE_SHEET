@@ -1,0 +1,22 @@
+import java.util.ArrayList;
+
+public class Solution {
+	public static int maximumProduct(ArrayList<Integer> arr, int n) {
+		int prevMax = 1;
+        int prevMin = 1;
+        
+        int max = arr.get(0);
+        for(int i=0;i<arr.size();i++){
+            if(arr.get(i)<0){
+                prevMax = prevMin+prevMax;
+                prevMin = prevMax - prevMin;
+                prevMax = prevMax - prevMin;
+            }
+            prevMax = Math.max(arr.get(i),arr.get(i)*prevMax);
+            prevMin = Math.min(arr.get(i),arr.get(i)*prevMin);
+            max = Math.max(max,prevMax);
+        }
+        
+        return max;
+	}
+}
