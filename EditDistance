@@ -1,0 +1,30 @@
+
+public class Solution {
+
+    public static int editDistance(String str1, String str2) {
+        int[][] dp = new int[str1.length()][str2.length()];
+        return fn(str1,str2,0,0,dp);
+    }
+    public static int fn(String s1,String s2,int i1,int i2,int[][] dp){
+        if(s2.length()==i2){
+            return s1.length()-i1;
+        }
+        if(s1.length()==i1){
+            return s2.length()-i2;
+        }
+        if(dp[i1][i2]!=0)
+            return dp[i1][i2];
+        
+        int count = Integer.MAX_VALUE;
+        if(s1.charAt(i1)==s2.charAt(i2)){
+            count = 0 + fn(s1,s2,i1+1,i2+1,dp);
+        }
+        else{
+            count = Math.min(count, fn(s1,s2,i1,i2+1,dp)+1);
+            count = Math.min(count,fn(s1,s2,i1+1,i2,dp)+1);
+            count = Math.min(count,fn(s1,s2,i1+1,i2+1,dp)+1);
+        }
+        dp[i1][i2] = count;
+        return dp[i1][i2];
+    }
+}
