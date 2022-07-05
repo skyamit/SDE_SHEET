@@ -1,0 +1,25 @@
+
+public class Solution {
+	public static long countWaysToMakeChange(int denominations[], int value){
+        long[][] dp = new long[denominations.length][value+1];
+         return fn(denominations,value,denominations.length-1,dp);
+	}
+    public static long fn(int[] denomination,int value, int index,long[][] dp){
+        if(index==0){
+            if(value%denomination[0]==0)
+                return 1;
+            return 0;
+        }
+        if(dp[index][value]!=0)
+            return dp[index][value];
+        
+        long notTake = fn(denomination,value,index - 1,dp);
+        long take = 0l;
+        if(denomination[index]<=value)
+            take = fn(denomination,value - denomination[index],index,dp);
+        
+        dp[index][value] = notTake + take;
+        return dp[index][value];
+    }
+	
+}
