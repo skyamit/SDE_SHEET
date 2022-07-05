@@ -1,0 +1,22 @@
+import java.util.ArrayList;
+
+public class Solution {
+    public static int maxIncreasingDumbbellsSum(ArrayList<Integer> rack, int n) {
+        int[][] dp = new int[n][n+1];
+        return fn(rack,0,-1,dp);
+    }
+    public static int fn(ArrayList<Integer> rack,int i,int prev,int[][] dp){
+        if(i==rack.size())
+            return 0;
+        if(dp[i][prev+1]!=0)
+            return dp[i][prev+1];
+        
+        int sum =0;
+        if(prev==-1 || rack.get(prev)<rack.get(i)){
+            sum = rack.get(i) + fn(rack,i+1,i,dp);
+        }
+        sum = Math.max(sum,fn(rack,i+1,prev,dp));
+        dp[i][prev+1] = sum;
+        return dp[i][prev+1];
+    }
+}
