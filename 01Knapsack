@@ -1,0 +1,22 @@
+import java.util.ArrayList;
+
+public class Solution {
+	public static int maxProfit(ArrayList<Integer> values, ArrayList<Integer> weights, int n, int w) {
+		int[][] dp = new int[n][w+1];
+        return fn(values,weights,w,0,dp);
+	}
+    public static int fn(ArrayList<Integer> values, ArrayList<Integer> weights,int w,int i,int[][] dp){
+        if(w<=0 || i==values.size()){
+            return 0;
+        }
+        if(dp[i][w]!=0)
+            return dp[i][w];
+        
+        int result = 0;
+        if(w-weights.get(i)>=0)
+            result = fn(values,weights,w-weights.get(i),i+1,dp) + values.get(i);
+        result = Math.max(result, fn(values,weights,w,i+1,dp));
+        dp[i][w] = result;
+        return dp[i][w];
+    }
+}
