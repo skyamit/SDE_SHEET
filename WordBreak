@@ -1,0 +1,27 @@
+public class Solution {
+    static Boolean found = false;
+    public static Boolean wordBreak(String[] arr, int n, String target) {
+        found = false;
+        int[] dp = new int[target.length()+1];
+        fn(arr,0,target,dp);
+        return found;
+    }
+    public static void fn(String[] arr, int index, String target,int[] dp){
+        if(index>target.length())
+            return ;
+        if(target.length()==index){
+            found =  true;
+            return ;
+        }
+        if(dp[index]!=0)
+            return ;
+        for(String x : arr){
+            if(x.length()<=(target.length()-index) && 
+               x.equals(target.substring(index,index+x.length()))){
+                fn(arr,index+x.length(),target,dp);
+            }
+        }
+        dp[index] = 1;
+        return ;
+    } 
+}
