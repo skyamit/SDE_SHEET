@@ -1,0 +1,20 @@
+public class Solution {
+	public static int cutRod(int price[], int n) {
+		// Write your code here.
+        int[][] dp = new int[price.length][n+1];
+        return fn(price,n,price.length-1,dp);
+	}
+    public static int fn(int price[], int n,int index,int[][] dp){
+        if(index==0)
+            return n*price[0];
+        if(dp[index][n]!=0)
+            return dp[index][n];
+        int notTake = 0 + fn(price,n ,index-1,dp);
+        int take = 0;
+        if(index + 1<=n){
+            take = price[index] + fn(price,n-index-1,index,dp);
+        }
+        dp[index][n] =  Math.max(take,notTake);
+        return Math.max(take,notTake);
+    }
+}
