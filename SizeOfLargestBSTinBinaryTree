@@ -1,0 +1,59 @@
+/*************************************************************************
+
+    Following is the class structure of the Node class:
+
+	class TreeNode<T> {
+	    public T data;
+	    public TreeNode<T> left;
+	    public TreeNode<T> right;
+
+	    TreeNode(T data) {
+	        this.data = data;
+	        left = null;
+	        right = null;
+	    }
+	}
+
+*************************************************************************/
+
+public class Solution {
+    static int max;
+	public static int largestBST(TreeNode<Integer> root) {
+        return largestBSTSubtreeHelper(root).maxSize;
+    }
+    public static NodeValue largestBSTSubtreeHelper(TreeNode<Integer> root)
+    {
+        // An empty tree is a BST of size 0.
+        if (root == null) {
+            return new NodeValue(Integer.MAX_VALUE, Integer.MIN_VALUE, 0);
+        }
+        
+        // Get values from left and right subtree of current tree.
+        NodeValue left = largestBSTSubtreeHelper(root.left);
+        NodeValue right = largestBSTSubtreeHelper(root.right);
+        
+        // Current node is greater than max in left AND smaller than min in right, it is a BST.
+        if (left.maxNode < root.data && root.data < right.minNode) {
+            // It is a BST.
+            return new NodeValue(Math.min(root.data, left.minNode), Math.max(root.data, right.maxNode), 
+                                left.maxSize + right.maxSize + 1);
+        }
+        
+        // Otherwise, return [-inf, inf] so that parent can't be valid BST
+         return new NodeValue(Integer.MIN_VALUE, Integer.MAX_VALUE, 
+                            Math.max(left.maxSize, right.maxSize));
+    }
+    
+    public int largestBSTSubtree(TreeNode root) {
+        return largestBSTSubtreeHelper(root).maxSize;
+    }
+}
+class NodeValue {
+    public int maxNode, minNode, maxSize;
+    
+    NodeValue(int minNode, int maxNode, int maxSize) {
+        this.maxNode = maxNode;
+        this.minNode = minNode;
+        this.maxSize = maxSize;
+    }
+}
