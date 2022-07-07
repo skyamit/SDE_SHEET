@@ -1,0 +1,24 @@
+
+public class Solution {
+	public static int matrixMultiplication(int[] arr , int n) {
+        int[][] dp = new int[n][n];
+		return fn(arr,1,n-1,dp);
+	}
+    public static int fn(int[] arr,int i,int j,int[][] dp){
+        if(i==j)
+            return 0;
+        
+        if(dp[i][j]!=0)
+            return dp[i][j];
+        
+        int min = Integer.MAX_VALUE;
+        for(int k=i;k<j;k++){
+            int temp = arr[i-1]*arr[j]*arr[k] + fn(arr,i,k,dp) + fn(arr,k+1,j,dp);
+            min  = Math.min(min,temp);
+        }
+        
+        dp[i][j] = min;
+        
+        return min;
+    }
+}
