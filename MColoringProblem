@@ -1,0 +1,29 @@
+public class Solution {
+	public static String graphColoring(int[][] mat, int m) {
+		int[] color = new int[mat.length];
+        int n = mat.length;
+        if (solve(0, mat, color, n, m))
+            return "YES";
+        else
+            return "NO";
+	}
+    private static boolean solve(int node, int[][] G, int[] color, int n, int m) {
+        if (node == n) return true;
+
+        for (int i = 1; i <= m; i++) {
+            if (isSafe(node, G, color, n, i)) {
+                color[node] = i;
+                if (solve(node + 1, G, color, n, m)) return true;
+                color[node] = 0;
+            }
+        }
+        return false;
+    }
+    private static boolean isSafe(int node, int[][] G, int[] color, int n, int col) {
+        for(int i=0;i<n;i++){
+            if(node!=i&& G[node][i]==1 && color[i]==col)
+                 return false;
+        }
+        return true;
+    }
+}
