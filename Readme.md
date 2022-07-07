@@ -5,7 +5,7 @@ This is a 60days Challenge to complete 180+ Data Structure and Algorithm questio
 
 <b>Motivation</b> : I started this challenge to be consistent for 60 days and solve all the question, which will help me learn more about DSA Algorithms.
 
-<b>Here we covered these topics on these days: </b></br>
+<b>List of Topic Covered :</b></br>
 Day 1: Arrays </br>
 Day 2: Arrays Part-II</br>
 Day 3: Arrays Part-III</br>
