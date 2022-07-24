@@ -1,0 +1,65 @@
+public class Solution {
+
+	public static LinkedListNode<Integer> swapNodes(LinkedListNode<Integer> head, int i, int j) {
+        
+        //take a dummy node to avoid null pointer exception
+		LinkedListNode<Integer> dummy = new LinkedListNode<Integer>(-10);
+        dummy.next = head;
+        LinkedListNode<Integer> result = dummy;
+        
+        //find both the nodes
+        LinkedListNode<Integer> prevI = null;
+        LinkedListNode<Integer> prevJ = null;
+        int index = 0;
+        while(dummy!=null && dummy.next!=null){
+            if(index == i){
+                prevI = dummy;
+            }
+            if(index == j){
+                prevJ = dummy;
+            }
+            index++;
+            dummy = dummy.next;
+        }
+        
+        // if any index is greater than list size
+        if(prevI==null || prevJ==null)
+            return head;
+        
+        if(prevI==prevJ)
+            return head;
+        // if i is less than j (first node comes first)
+        //else j is less than i (second node comes first)
+		if(i<j){
+            if(prevI.next==prevJ)
+                swapAdjacent(prevI,prevJ);
+            else
+                swap(prevI,prevJ);
+        }
+        else{
+            if(prevJ.next==prevI)
+                swapAdjacent(prevJ,prevI);
+            else
+                swap(prevJ,prevI);
+        }
+        
+        return result.next;
+	}
+    
+    public static void swapAdjacent(LinkedListNode<Integer> first,LinkedListNode<Integer> second){
+        LinkedListNode<Integer> temp = second.next.next;
+        first.next = second.next;
+        first.next.next = second;
+        second.next = temp;
+    }
+    
+	public static void swap(LinkedListNode<Integer> first,LinkedListNode<Integer> second){
+        LinkedListNode<Integer> temp = first.next;
+        first.next = second.next;
+        LinkedListNode<Integer> temp2 = second.next.next;
+        first = first.next;
+        second.next.next = temp.next;
+        second.next = temp;
+        second.next.next = temp2;
+    }
+}
