@@ -1,0 +1,50 @@
+public class Solution {
+	
+	int solve(String[] graph , int n, int m)
+	{
+		/* Your class should be named Solution
+		 * Don't write main().
+		 * Don't read input, it is passed as function argument.
+		 * Return output and don't print it.
+	 	 * Taking input and printing output is handled automatically.
+        */
+        
+        String s = "CODINGNINJA";
+        int[][] dir = {{1,0},{0,1},{0,-1},{-1,0},{1,1},{-1,-1},{-1,1},{1,-1}};
+        boolean[][] visited = new boolean[n][m];
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(graph[i].charAt(j)==s.charAt(0)){
+                    visited[i][j] = true;
+                    if(dfs(1,s,i,j,graph,n,m,dir,visited)){
+                        return 1;
+                    }
+                    visited[i][j] = false;
+                }
+            }
+        }
+        return 0;
+	}
+	
+    public boolean dfs(int index,String s,int i,int j,String[] graph,int n,int m,int[][] dir,boolean[][] visited){
+        
+        if(index==s.length()){
+            return true;
+        }
+        
+        visited[i][j] = true;
+        boolean found = false;
+        for(int[] d : dir){
+            int x = d[0]+i;
+            int y = d[1]+j;
+            if(x<n && y<m && x>=0 && y>=0 && !visited[x][y] && graph[x].charAt(y)==s.charAt(index)){
+            	if(dfs(index+1,s,x,y,graph,n,m,dir,visited))
+                    return true;
+            }
+        }
+        visited[i][j] = false;
+        return false; 
+    }
+	
+}
