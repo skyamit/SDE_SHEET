@@ -1,0 +1,58 @@
+import java.util.*;
+public class Solution {
+
+    static int[][] dir = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+
+	public static int dfs(String[] edge, int n) {
+		/* Your class should be named Solution
+		 * Don't write main().
+		 * Don't read input, it is passed as function argument.
+		 * Return output and don't print it.
+	 	 * Taking input and printing output is handled automatically.
+        */
+        boolean[][] visited = new boolean[n][n];
+        int max = 0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(edge[i].charAt(j)=='1' && !visited[i][j])
+                	max = Math.max(max,bfs(edge,n,i,j,visited));
+            }
+        }
+        
+        return max;
+	}
+
+    public static int bfs(String[] edge,int n,int i,int j,boolean[][] visited){
+        Queue<Pair> queue = new LinkedList<>();
+        int count = 1;
+        queue.offer(new Pair(i,j));
+        visited[i][j] = true;
+        
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            while(size-->0){
+                Pair top = queue.poll();
+                for(int[] d : dir){
+                    int x = d[0]+top.i;
+                    int y = d[1]+top.j;
+                    if(x>=0 && y>=0 && x<n && y<n && edge[x].charAt(y)=='1' && !visited[x][y]){
+                        count++;
+                        visited[x][y] = true;
+                        queue.offer(new Pair(x,y));
+                    }
+                }
+            }
+        }
+        
+        return count;
+    }
+
+    static class Pair{
+        int i;
+        int j;
+        Pair(int x,int y){
+            i = x;
+            j = y;
+        }
+    }
+}
